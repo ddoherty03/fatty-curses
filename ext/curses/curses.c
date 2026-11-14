@@ -360,6 +360,21 @@ curses_close_screen(VALUE self)
 }
 
 /*
+ * Document-method: Curses.endwin
+ *
+ * Temporarily leave curses mode, restoring the terminal's shell modes.
+ * Unlike Curses.close_screen, retain the Ruby screen object and existing
+ * windows. Call Curses.refresh or a window's refresh method to resume.
+ * Returns +true+ on success, or +false+ if endwin fails.
+ */
+static VALUE
+curses_endwin(VALUE self)
+{
+    curses_stdscr();
+    return endwin() == OK ? Qtrue : Qfalse;
+}
+
+/*
  * This is no runtime method,
  * but a function called before the proc ends
  *
@@ -5145,6 +5160,7 @@ Init_curses(void)
     rb_define_module_function(mCurses, "assume_default_colors", curses_assume_default_colors, 2);
     rb_define_module_function(mCurses, "init_screen", curses_init_screen, 0);
     rb_define_module_function(mCurses, "close_screen", curses_close_screen, 0);
+    rb_define_module_function(mCurses, "endwin", curses_endwin, 0);
     rb_define_module_function(mCurses, "closed?", curses_closed, 0);
     rb_define_module_function(mCurses, "stdscr", curses_init_screen, 0);
     rb_define_module_function(mCurses, "refresh", curses_refresh, 0);

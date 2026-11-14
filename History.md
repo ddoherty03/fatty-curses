@@ -1,3 +1,7 @@
+## Unreleased
+
+* Expose Curses.endwin for temporary suspension while retaining the Ruby screen object.
+
 This file is no longer being updated after version 1.4.5.
 For changes since version 1.4.5, see <URL:https://github.com/ruby/curses/releases>.
 
