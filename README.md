@@ -1,5 +1,36 @@
 # curses
 
+## About this fork
+
+This is a temporary fork of [ruby/curses](https://github.com/ruby/curses)
+for portable terminal suspension in [Fatty](https://github.com/ddoherty03/fatty),
+the terminal interface used by [byr](https://github.com/ddoherty03/byr).
+
+Fatty needs to leave curses mode while an editor or another interactive program
+runs, then resume its existing screen. The upstream `Curses.close_screen` calls
+`endwin()` but also clears Ruby's cached screen object. Fatty's Unix workaround
+calls the native `endwin` symbol directly; that symbol is not exposed by the
+Windows build we tested.
+
+The `preserve-screen-suspension` branch adds **`Curses.endwin`**, which calls
+`endwin()` without clearing the cached Ruby screen object. It returns `true`
+on success and `false` on failure. Existing windows can be refreshed to resume
+curses mode. The binding works with both ncurses and PDCurses; it is not a
+Windows-only API.
+
+Repeated suspension tests pass on Linux and Windows, including retaining a
+window across garbage collection and running a child process. The regression
+probe is [test/suspension.rb](test/suspension.rb). Fatty's Windows integration
+still has redraw and shutdown issues under investigation, so this does not
+constitute complete Windows support for Fatty or byr.
+
+We intend to submit the binding and regression probe upstream. No upstream PR
+or public gem release has been made yet. **`gem install curses` installs the
+upstream release, not this patch.** The badges and general documentation below
+refer to the upstream project.
+
+---
+
 [![Gem Version](https://badge.fury.io/rb/curses.svg)](https://badge.fury.io/rb/curses)
 [![ubuntu](https://github.com/ruby/curses/workflows/ubuntu/badge.svg)](https://github.com/ruby/curses/actions?query=workflow%3Aubuntu)
 [![windows](https://github.com/ruby/curses/workflows/windows/badge.svg)](https://github.com/ruby/curses/actions?query=workflow%3Awindows)
