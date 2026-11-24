@@ -4,6 +4,7 @@ on:
   push:
     branches: [main, preserve-screen-suspension]
   pull_request:
+  workflow_dispatch:
 
 jobs:
   build:
