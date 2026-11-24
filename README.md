@@ -1,4 +1,4 @@
-# curses
+# fatty-curses
 
 ## About this fork
 
@@ -20,13 +20,21 @@ Windows-only API.
 
 Repeated suspension tests pass on Linux and Windows, including retaining a
 window across garbage collection and running a child process. The regression
-probe is [test/suspension.rb](test/suspension.rb). Fatty's Windows integration
-still has redraw and shutdown issues under investigation, so this does not
-constitute complete Windows support for Fatty or byr.
+probe is [test/suspension.rb](test/suspension.rb). The earlier Fatty redraw
+and shutdown defects were fixed in Fatty; this fork provides the suspension API.
 
-We intend to submit the binding and regression probe upstream. No upstream PR
-or public gem release has been made yet. **`gem install curses` installs the
-upstream release, not this patch.** The badges and general documentation below
+The fork is distributed as **`fatty-curses`**, beginning with version `1.7.0.1`
+(upstream `1.7.0` plus the suspension patch). Fatty depends on it directly, so
+RubyGems installs it automatically for applications such as Byr. No Git checkout
+or separate manual dependency installation is needed by end users.
+
+Use `require "fatty-curses"` to explicitly select this fork. The existing
+`require "curses"` entry point and `Curses` API remain available. Stock curses
+can remain installed for other applications, but do not load both extensions
+in the same Ruby process.
+
+We intend to submit the binding and regression probe upstream. `gem install
+curses` still installs upstream, without selecting this fork. The badges below
 refer to the upstream project.
 
 ---
@@ -49,7 +57,7 @@ with the release of Ruby 2.1.0. (see [ruby/ruby@9c5b2fd][2])
 
 ## Install
 
-    $ gem install curses
+    $ gem install fatty-curses
 
 Requires ncurses or ncursesw (with wide character support).
 On Debian based distributions, you can install it with apt:
@@ -60,18 +68,18 @@ Or
 
     $ apt install libncursesw5-dev
 
-On Windows, `gem install curses` will build bundled PDCurses, so you
+On Windows, `gem install fatty-curses` will build bundled PDCurses, so you
 don't need to install extra libraries.
 However, if you prefer ncurses to PDCurses, specify the following option:
 
-    > gem install curses -- --use-system-libraries
+    > gem install fatty-curses -- --use-system-libraries
 
 On mingw, you need DevKit to compile the extension library.
 
 On MacOS, `ncurses` menu isn't natively supported. You can install the gem with menu support using homebrew:
 
     brew install ncurses
-    gem install curses -- --use-system-libraries --with-ncurses-dir=/usr/local/opt/ncurses
+    gem install fatty-curses -- --use-system-libraries --with-ncurses-dir=/usr/local/opt/ncurses
 
 _with `/usr/local/opt/ncurses` the path where homebrew installed ncurses on your machine_
 
@@ -92,7 +100,7 @@ After checking out the repo, run `bundle install` to install dependencies.
 
 To compile the extension library, run `bundle exec rake compile`.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `curses.gemspec`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `fatty-curses.gemspec`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
 ## License
 

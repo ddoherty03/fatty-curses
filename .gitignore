@@ -1,5 +1,6 @@
 *.rbc
 *.swp
+*.gem
 /TAGS
 /doc
 /lib/curses.bundle
@@ -12,6 +13,9 @@
 /vendor/x64-mingw32
 /vendor/x64-mswin64*
 /ext/curses/Makefile
+/ext/curses/*.o
+/ext/curses/*.so
+/ext/curses/extconf.h
 .ruby-version
 _site
 /AGENTS.org

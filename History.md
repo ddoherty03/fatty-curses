@@ -1,5 +1,8 @@
-## Unreleased
+### fatty-curses 1.7.0.1 / 2026-11-24
 
+* Distribute the portable Curses.endwin suspension patch as fatty-curses so
+  Fatty applications install it automatically.
+* Keep the upstream Curses API and provide an explicit fatty-curses loader.
 * Expose Curses.endwin for temporary suspension while retaining the Ruby screen object.
 
 This file is no longer being updated after version 1.4.5.
@@ -66,7 +69,7 @@ New features:
 Bug fixes:
 
 * Drop rb_safe_level check for Ruby 2.7 by Eric Wong.
-* Try libtinfow first.  Issue #52 by Marco Sirabella. 
+* Try libtinfow first.  Issue #52 by Marco Sirabella.
 
 ### 1.3.1 / 2019-04-21
 
@@ -225,4 +228,3 @@ Bug fixes:
 ### 1.0.0 / 2013-12-10
 
 Birthday!
-

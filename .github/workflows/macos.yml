@@ -2,7 +2,7 @@ name: macos
 
 on:
   push:
-    branches: [main]
+    branches: [main, preserve-screen-suspension]
   pull_request:
 
 jobs:
@@ -10,6 +10,8 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v7
+      with:
+        submodules: true
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: 3.4
@@ -21,5 +23,5 @@ jobs:
       run: bundle exec rake build
     - name: Install package
       run: |
-        gem install pkg/curses-*.gem
-        ruby -r curses -e 'puts Curses::VERSION'
+        gem install pkg/fatty-curses-*.gem
+        ruby -r fatty-curses -e 'abort unless Curses.respond_to?(:endwin); puts Curses::VERSION'
